@@ -72,9 +72,9 @@ if(isset($_POST["formsub"]) && $_SERVER["REQUEST_METHOD"] == "POST"){
 <body class="p-5 " >
     
     <div class="container">
-        <div class="row">
+        <div class="row text-center  ">
             <div class="col-md-4"></div>
-            <div class="col-md-4 w-75 mt-5 ">
+            <div class="col-md-4 w-75 mt-5 shadow p-5 mx-auto rounded">
                 <form action="" method="post">
 
                     <!-- Name field -->
