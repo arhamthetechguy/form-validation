@@ -27,8 +27,7 @@
             echo "Something went wrong";
         }
     }
-
- }
+}
 ?>
 
 <form method="post" enctype="multipart/form-data" >

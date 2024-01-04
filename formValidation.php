@@ -1,17 +1,3 @@
-<!-- <?php
-// if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["displayName"])){
-//     echo $_POST["name"]. "<br/>". $_POST["age"]. "<br/>". $_POST["gender"];
-// }
-// ?> -->
-
-<!-- <form action="" method="post">
-    <input type="text" placeholder="name" name="name"><br />
-    <input type="text" placeholder="age" name="age"><br />
-    <input type="text" placeholder="gender" name="gender"><br />
-    <input type="submit" value="Submit" name="displayName">
-</form> -->
-
-
 <?php 
 
 function clean($data){
@@ -26,6 +12,7 @@ if(isset($_POST["formsub"]) && $_SERVER["REQUEST_METHOD"] == "POST"){
     $email = clean($_POST["email"]);
     $gender = clean($_POST["gender"] ?? null);
     $skills = $_POST["skills"] ?? null;
+    $select = clean($_POST["select"]) ?? null;
 
     //name
     if(empty($name)){
@@ -47,16 +34,23 @@ if(isset($_POST["formsub"]) && $_SERVER["REQUEST_METHOD"] == "POST"){
 
     //gender
     if(empty($gender)){
-        $errGender = "Gender can't be empty";
+        $errGender = "Please select your gender";
     } else {
         $crrGender = $gender;
     }
 
     //skills
     if(empty($skills)){
-        $errSkills = "Skills can't be empty";
+        $errSkills = "Please select your skills";
     } else {
         $crrSkills = $skills;
+    }
+
+    //select
+    if(empty($select)){
+        $errSelect = "Please select your division";
+    } else {
+        $crrSelect = $select;
     }
 
 }
@@ -82,6 +76,8 @@ if(isset($_POST["formsub"]) && $_SERVER["REQUEST_METHOD"] == "POST"){
             <div class="col-md-4"></div>
             <div class="col-md-4 w-75 mt-5 ">
                 <form action="" method="post">
+
+                    <!-- Name field -->
                     <div class="mb-3 form-floating ">
                         <input type="text" placeholder="Your Name" name="name" class="form-control <?= isset($errName) ? "is-invalid" : null ?> <?= isset($crrName) ? "is-valid" : null; ?> " value="<?= $name ?? null; ?>" >
                         <div class="invalid-feedback" >
@@ -92,6 +88,8 @@ if(isset($_POST["formsub"]) && $_SERVER["REQUEST_METHOD"] == "POST"){
                         </div>
                         <label for="">Your Name</label>
                     </div>
+
+                    <!-- Email field -->
                     <div class="mb-3 form-floating ">
                         <input type="text" placeholder="Your Email" name="email" class="form-control <?= isset($errEmail) ? "is-invalid" : null; ?> <?= isset($crrEmail) ? "is-valid" : null; ?> ">
                         <label for="">Your Email</label>
@@ -102,6 +100,8 @@ if(isset($_POST["formsub"]) && $_SERVER["REQUEST_METHOD"] == "POST"){
                             <?= $crrEmail ?? null ?>
                         </div>
                     </div>
+
+                    <!-- Gender Field -->
                     <div class="form-check-inline border p-3 w-100 rounded <?= isset($errGender) ? "border-danger" : (isset($crrGender) ? "border-success" : null) ?> ">
                         <div class="form-check form-check-inline" >
                             <label class="fw-bold" >Gender :</label>
@@ -119,7 +119,8 @@ if(isset($_POST["formsub"]) && $_SERVER["REQUEST_METHOD"] == "POST"){
                             <?= $errGender ?? $gender ?? null ?>
                      </div>
                     
-                     <div class="form-check form-check-inline  border rounded p-3 mt-3 w-100 <?= isset($errSkills) ? "border-danger" : (isset($crrSkills) ? "border-success" : null) ?> ">
+                     <!-- Skills Field -->
+                     <div class="form-check form-check-inline  border rounded p-3 mt-3 w-100 <?= isset($errSkills) ? "border-danger" : (isset($crrSkills) ? "border-" : null) ?> ">
                         <div class="form-check form-check-inline">
                             <label class="fw-bold" >Skills :</label>
                         </div>
@@ -151,6 +152,26 @@ if(isset($_POST["formsub"]) && $_SERVER["REQUEST_METHOD"] == "POST"){
                         ?>
                     </div>
 
+                    <!-- Selection field -->
+                    <div class="mt-3 py-3 px-4 border rounded d-flex align-items-center <?= isset($errSelect) ? "border-danger" : (isset($crrSelect) ? "border-success" : null ); ?> ">
+                        <label class="fw-bold ms-3 me-3 w-25 " >Select Division :</label>
+                        <select class="form-select w-75"  name="select">
+                            <option value="">--Select Your Division</option>
+                            <option value="Dhaka" <?= isset($select) && $select == "Dhaka" ? "selected" : null; ?> >Dhaka</option>
+                            <option value="Rajshahi" <?= isset($select) && $select == "Rajshahi" ? "selected" : null; ?> >Rajshahi</option>
+                            <option value="Chattogram" <?= isset($select) && $select == "Chattogram" ? "selected" : null; ?> >Chattogram</option>
+                            <option value="Khulna" <?= isset($select) && $select == "Khulna" ? "selected" : null; ?> >Khulna</option>
+                            <option value="Barisal" <?= isset($select) && $select == "Barisal" ? "selected" : null; ?> >Barisal</option>
+                            <option value="Sylhet" <?= isset($select) && $select == "Sylhet" ? "selected" : null; ?> >Sylhet</option>
+                            <option value="Rangpur" <?= isset($select) && $select == "Rangpur" ? "selected" : null; ?> >Rangpur</option>
+                            <option value="Mymensingh" <?= isset($select) && $select == "Mymensingh" ? "selected" : null; ?> >Mymensingh</option>
+                        </select>
+                    </div>
+                    <div class="<?= isset($errSelect) ? "text-danger" : (isset($crrSelect) ? "text-success" : null); ?>" >
+                        <?= $errSelect ?? $crrSelect ?? null; ?>
+                    </div>
+
+                    <!-- Sumbit Button -->
                     <input type="submit" class="btn btn-primary mt-3 " name="formsub" value="Submit">
                 </form>
             </div>
