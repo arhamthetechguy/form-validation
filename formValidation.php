@@ -48,7 +48,7 @@ if(isset($_POST["formsub"]) && $_SERVER["REQUEST_METHOD"] == "POST"){
 
     //select
     if(empty($select)){
-        $errSelect = "Please select your division";
+        $errSelect = "Please select your division first";
     } else {
         $crrSelect = $select;
     }
