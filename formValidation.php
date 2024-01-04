@@ -120,7 +120,7 @@ if(isset($_POST["formsub"]) && $_SERVER["REQUEST_METHOD"] == "POST"){
                      </div>
                     
                      <!-- Skills Field -->
-                     <div class="form-check form-check-inline  border rounded p-3 mt-3 w-100 <?= isset($errSkills) ? "border-danger" : (isset($crrSkills) ? "border-" : null) ?> ">
+                     <div class="form-check form-check-inline  border rounded p-3 mt-3 w-100 <?= isset($errSkills) ? "border-danger" : (isset($crrSkills) ? "border-succes" : null) ?> ">
                         <div class="form-check form-check-inline">
                             <label class="fw-bold" >Skills :</label>
                         </div>
