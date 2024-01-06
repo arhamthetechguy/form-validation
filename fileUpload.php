@@ -17,10 +17,12 @@
             mkdir('uploads');
         }
         
+        // creating file name
         $newFileName = str_shuffle(date('HisAFdYDyl')).uniqid('', true) . '.' . $actualFileName;
 
+        // uploading file
         $uploadFile = move_uploaded_file($fileTmpName, 'uploads/' . $newFileName);
-
+        
         if ($uploadFile){
             $crrFile = "<span style='color: green' >File uploaded successfully</span>";
         } else {
