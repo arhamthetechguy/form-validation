@@ -13,6 +13,8 @@ if(isset($_POST["formsub"]) && $_SERVER["REQUEST_METHOD"] == "POST"){
     $gender = clean($_POST["gender"] ?? null);
     $skills = $_POST["skills"] ?? null;
     $select = clean($_POST["select"]) ?? null;
+    $pass = clean($_POST["pass"]) ?? null;
+    $cpass = clean($_POST["cpass"]) ?? null;
 
     //name
     if(empty($name)){
@@ -51,6 +53,24 @@ if(isset($_POST["formsub"]) && $_SERVER["REQUEST_METHOD"] == "POST"){
         $errSelect = "Please select your division";
     } else {
         $crrSelect = $select;
+    }
+
+    // password
+    if (empty($pass)){
+        $errPass = "Passwaord is required";
+    } elseif (!preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,}$/", $pass)){
+        $errPass = "Provide a strong password";
+    } else {
+        $crrPass = $pass;
+    }
+
+    // confirm password
+    if (empty($cpass)){
+        $errCpass = "Confirm password is required";
+    } elseif ($pass != $cpass){
+        $errCpass = "Password and confirm password do not matched";
+    } else {
+        $crrCpass = $cpass;
     }
 
 }
@@ -169,6 +189,30 @@ if(isset($_POST["formsub"]) && $_SERVER["REQUEST_METHOD"] == "POST"){
                     </div>
                     <div class="<?= isset($errSelect) ? "text-danger" : (isset($crrSelect) ? "text-success" : null); ?>" >
                         <?= $errSelect ?? $crrSelect ?? null; ?>
+                    </div>
+
+                    <!-- password -->
+                    <div class="mt-3 form-floating rounded">
+                        <input type="password" placeholder="Type your password" name="pass" class="form-control <?= isset($errPass) ? "is-invalid" : (isset($crrPass) ? "is-valid" : null ); ?> ">
+                        <label>Password</label>
+                        <div class="invalid-feedback" >
+                        <?= $errPass ?? null ?>
+                        </div>
+                        <div class="valid-feedback">
+                            <?= password_hash($crrPass, PASSWORD_BCRYPT) ?? null ?>
+                        </div>
+                    </div>
+
+                    <!-- Confirm password -->
+                    <div class="mt-3 form-floating rounded">
+                        <input type="password" placeholder="Confirm password" name="cpass" class="form-control <?= isset($errCpass) ? "is-invalid" : (isset($crrCpass) ? "is-valid" : null ); ?> ">
+                        <label>Confirm Password</label>
+                        <div class="invalid-feedback" >
+                        <?= $errCpass ?? null ?>
+                        </div>
+                        <div class="valid-feedback">
+                            <?= password_hash($crrCpass, PASSWORD_BCRYPT) ?? null ?>
+                        </div>
                     </div>
 
                     <!-- Sumbit Button -->
